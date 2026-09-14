@@ -1,4 +1,3 @@
-
 // Weather component, shows the current temperature and a condition icon
 class Weather extends Component {
   refs = {
@@ -47,7 +46,8 @@ class Weather extends Component {
    * Set up event handlers for the component
    */
   setEvents() {
-    this.onclick = this.swapScale;
+    // Disabled scale swapping click behavior since we are showing both units natively
+    this.onclick = null;
   }
 
   /**
@@ -133,7 +133,7 @@ class Weather extends Component {
             <span class="weather-icon" class="+"><i class="material-icons weather-condition-icon sunny">wb_sunny</i></span>
             <span class="weather-temperature-location">${this.location}</span>
             <span class="weather-temperature-value">1</span>
-            º<span class="weather-temperature-scale">${this.temperatureScale}</span>
+            <span class="weather-temperature-scale"></span>
         </p>`;
   }
 
@@ -159,14 +159,8 @@ class Weather extends Component {
    * Toggle temperature scale between Celsius and Fahrenheit
    */
   swapScale() {
-    this.temperatureScale = this.temperatureScale === "C" ? "F" : "C";
-
-    CONFIG.temperature = {
-      ...CONFIG.temperature,
-      scale: this.temperatureScale,
-    };
-
-    this.setTemperature();
+    // Disabled tracking state changes since we are showing both units natively
+    return;
   }
 
   /**
@@ -196,9 +190,16 @@ class Weather extends Component {
     const { temperature, condition } = this.weather;
     const { icon, color } = this.getForecast(condition);
 
-    this.refs.temperature = this.convertScale(temperature);
+    // Calculate both scales explicitly using the built-in metric (Celsius) API data
+    const fahrenheit = this.toF(temperature);
+    const celsius = temperature;
+
+    // Push the dual text block straight to the primary value container
+    this.refs.temperature = `${fahrenheit}°F / ${celsius}°C`;
     this.refs.condition = icon;
-    this.refs.scale = this.temperatureScale;
+    
+    // Clear out the trailing lone scale layout string to keep things tidy
+    this.refs.scale = "";
     this.refs.condition.classList.add(color);
   }
 
