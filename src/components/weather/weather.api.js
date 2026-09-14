@@ -22,19 +22,24 @@ class WeatherForecastClient {
    * Resolves to null when no API key is configured.
    * @returns {Promise<{temperature: number, condition: string} | null>}
    */
-  async getWeather() {
+async getWeather() {
     if (!this.url) return null;
 
     return await fetch(this.url)
       .then((res) => res.json())
       .then((data) => {
-        // Round temperature to nearest whole number
-        const temperature = Math.round(data.main.temp);
-        // Extract and normalise weather condition
+        // 1. Get the raw Celsius value from OpenWeatherMap API
+        const celsius = Math.round(data.main.temp);
+        
+        // 2. Mathematically convert it to Fahrenheit
+        const fahrenheit = Math.round((celsius * 9) / 5 + 32);
+
+        // 3. Extract and normalise weather condition
         const condition = data.weather[0].main.toLowerCase();
 
+        // 4. Return both calculations in an object so the UI can safely read them
         return {
-          temperature,
+          temperature: { fahrenheit, celsius },
           condition,
         };
       })
@@ -43,4 +48,3 @@ class WeatherForecastClient {
         return null;
       });
   }
-}
