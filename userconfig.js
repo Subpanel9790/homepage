@@ -59,25 +59,25 @@ const default_configuration = {
           links: [
             {
               name: "gmail",
-              url: "https://google.com",
+              url: "https://gmail.com/",
               icon: "brand-gmail",
               icon_color: palette.mauve,
             },
             {
               name: "calendar",
-              url: "https://google.com",
+              url: "https://calendar.google.com/calendar/u/0/r",
               icon: "calendar-filled",
               icon_color: palette.maroon,
             },
             {
               name: "sheets",
-              url: "https://google.com",
+              url: "https://docs.google.com/spreadsheets/u/0/",
               icon: "table",
               icon_color: palette.green,
             },
             {
               name: "drive",
-              url: "https://google.com",
+              url: "https://drive.google.com/drive/u/0/",
               icon: "brand-google-drive",
               icon_color: palette.blue,
             },
