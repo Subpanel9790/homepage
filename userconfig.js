@@ -81,6 +81,12 @@ const default_configuration = {
               icon: "brand-google-drive",
               icon_color: palette.blue,
             },
+            {
+              name: "minutecast",
+              url: "https://www.accuweather.com/en/us/nashville/37243/minute-weather-forecast/351090",
+              icon: "sun",
+              icon_color: palette.peach,
+            },
           ],
         },
         {
